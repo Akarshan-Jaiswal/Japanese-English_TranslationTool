@@ -1,0 +1,94 @@
+<html>
+
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+
+
+<body class="bg-light">
+
+    <div>
+        <!-- Image and text -->
+
+
+        <nav class="navbar navbar-expand-lg navbar-white bg-white">
+            <a class="navbar-brand text-danger" href="#">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Nissan-logo.svg/512px-Nissan-logo.svg.png"
+                    width="30" height="30" class="d-inline-block align-top" alt="">
+                Japanese Language Translation Tool
+            </a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav text-right float-right">
+                    <li class="nav-item active ">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Document</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <div class="text-secondary  m-3 ">
+            <h4>Upload file to Translate</h4>
+        </div>
+
+	
+        <p>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+        </p>
+
+        
+        <div class="container-fluid card  mb-5 p-2  mt-2 text-secondary">
+
+            <div class="card-body p-5 ">
+                <form  action = "http://localhost:5000/uploader" method = "POST" 
+                enctype = "multipart/form-data" id="myform">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile " name = "file" />
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+
+                    </div>
+                </form>
+
+            </div>
+            <div class="text-center mb-2">
+                <button class="btn btn-primary " form="myform" type="submit">Translate</button>
+
+            </div>
+
+
+        </div>
+
+
+</body>
+
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+
+</html>
